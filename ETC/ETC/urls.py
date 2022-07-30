@@ -17,9 +17,9 @@ from django.contrib import admin
 from django.urls import include, path
 
 urlpatterns = [
-    path('', include('Home.urls')),
-    path('email/', include('Email.urls')),
-    path('events/', include('Events.urls')),
-    path('chat/', include('Chat.urls')),
+    path('', include('home.urls', namespace='home')),
+    path('email/', include('email_view.urls', namespace='email_view')),
+    path('events/', include('events.urls', namespace='events')),
+    path('chat/', include('chat.urls', namespace='chat')),
     path('admin/', admin.site.urls),
 ]

@@ -1,0 +1,35 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- purecss.io -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@2.1.0/build/pure-min.css" integrity="sha384-yHIFVG6ClnONEA5yB5DJXfW2/KC173DIQrYoZMEtBvGzmf0PKiGyNEqe9N6BNDBH" crossorigin="anonymous">
+    
+    <link rel="stylesheet" href="{% static 'layout.css' %}">
+    {% block stylesheet %}
+    {% endblock stylesheet %}
+
+    <title>
+      {% block title %}
+        ETC
+      {% endblock %}
+    </title>
+  </head>
+  <body>
+    <!-- Navigation bar -->
+    <div id="nav-bar">
+      <img src="{% static 'images/logo.png' %}" alt="" href="{% url 'home:index' %}">
+      <button class="pure-button" href="{% url 'home:index' %}">Home</button>
+      <button class="pure-button">Events</button>
+      <button class="pure-button">Emails</button>
+      <button class="pure-button">Chat</button>
+    </div>
+
+    <!-- Page body -->
+    <div id="body">
+      {% block body %}
+      {% endblock body %}
+    </div>
+  </body>
+</html>

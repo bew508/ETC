@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class EmailConfig(AppConfig):
+class EmailViewConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'Email'
+    name = 'email_view'
