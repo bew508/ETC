@@ -36,12 +36,18 @@
       </a>
 
       {% if user.is_authenticated %}
-      <a href="{% url 'users:logout' %}">
+      <a class="right" href="{% url 'users:logout' %}">
         <button class="pure-button">Log Out</button>
       </a>
+      <a class="right empty" href="{% url 'users:index' %}">
+        {{ user.username }}
+      </a>
       {% else %}
-      <a href="{% url 'users:login' %}">
+      <a class="right" href="{% url 'users:login' %}">
         <button class="pure-button">Log In</button>
+      </a>
+      <a class="right" href="{% url 'users:register' %}">
+        <button class="pure-button">Register</button>
       </a>
       {% endif %}
     </div>

@@ -15,13 +15,21 @@
 
     <form class="pure-form" action="{% url 'users:register' %}" method="post">
       {% csrf_token %}
-      <label for="username">Username</label>
-      <input autofocus type="text" name="username" placeholder="Username" />
+      <input type="hidden" name="" autocomplete="off">
 
-      <label for="password">Password</label>
-      <input type="password" name="password" placeholder="Password" />
+      <label for="new-username">Username</label>
+      <input autofocus type="text" name="new-username" placeholder="Username" />
 
-      <button type="submit" class="pure-button pure-button-primary">Log In</button>
+      <label for="new-email">Email</label>
+      <input autofocus type="email" name="new-email" placeholder="Email" />
+
+      <label for="new-password">Password</label>
+      <input type="password" name="new-password" placeholder="Password" />
+
+      <label for="new-password-confirmation">Confirm Password</label>
+      <input type="password" name="new-password-confirmation" placeholder="Confirm Password" />
+
+      <button type="submit" class="pure-button pure-button-primary">Register</button>
     </form>
 
     <br />
