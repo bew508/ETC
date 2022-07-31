@@ -17,6 +17,7 @@ html {
 #nav-bar button {
     margin: 20px;
     min-width: 80px;
+    height: 40px;
 }
 
 /* Body */

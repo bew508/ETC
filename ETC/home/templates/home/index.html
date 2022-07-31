@@ -1,4 +1,9 @@
 {% extends 'home/layout.html' %}
+{% load static %}
+
+{% block stylesheet %}
+<link rel="stylesheet" href="{% static 'users/styles.css' %}">
+{% endblock stylesheet %}
 
 {% block body %}
 Home Page

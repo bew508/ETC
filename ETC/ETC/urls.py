@@ -21,5 +21,6 @@ urlpatterns = [
     path('email/', include('email_view.urls', namespace='email_view')),
     path('events/', include('events.urls', namespace='events')),
     path('chat/', include('chat.urls', namespace='chat')),
+    path('account/', include('users.urls', namespace='users')),
     path('admin/', admin.site.urls),
 ]

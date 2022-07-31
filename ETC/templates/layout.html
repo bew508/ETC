@@ -19,11 +19,31 @@
   <body>
     <!-- Navigation bar -->
     <div id="nav-bar">
-      <img src="{% static 'images/logo.png' %}" alt="" href="{% url 'home:index' %}">
-      <button class="pure-button" href="{% url 'home:index' %}">Home</button>
-      <button class="pure-button">Events</button>
-      <button class="pure-button">Emails</button>
-      <button class="pure-button">Chat</button>
+      <a href="{% url 'home:index' %}">
+        <img src="{% static 'images/logo.png' %}" alt="">
+      </a>
+      <a href="{% url 'home:index' %}">
+        <button class="pure-button">Home</button>
+      </a>
+      <a href="#">
+        <button class="pure-button">Events</button>
+      </a>
+      <a href="#">
+        <button class="pure-button">Emails</button>
+      </a>
+      <a href="#">
+        <button class="pure-button">Chat</button>
+      </a>
+
+      {% if user.is_authenticated %}
+      <a href="{% url 'users:logout' %}">
+        <button class="pure-button">Log Out</button>
+      </a>
+      {% else %}
+      <a href="{% url 'users:login' %}">
+        <button class="pure-button">Log In</button>
+      </a>
+      {% endif %}
     </div>
 
     <!-- Page body -->
