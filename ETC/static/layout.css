@@ -39,11 +39,6 @@ html {
     line-height: 40px;
 }
 
-#nav-bar a.empty:hover {
-    color: rgb(205, 205, 205);
-    font-size: 21px;
-}
-
 /* Body */
 #body {
     margin: 10px;

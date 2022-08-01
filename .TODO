@@ -1,0 +1,23 @@
+Event Request:
+- Create full model with all details about event
+- Add Event Manager
+- Autofill event form if user is logged in with First, Last, Email
+ Create js to add Rehearsal/Performance
+- Add filming and livestreaming and option to add it to Happening
+- Match event coordinator to past event coordinator if possible
+- Autofill performance and rehearsal locations to main location
+- Create a form review page where users can look at their form again
+- Send an email to user's email address with form results again
+
+Users:
+- Allow user accounts to only be made by an admin
+- Add prompt to change password upon loggin in first time
+- Add roles (rank) to User
+- Add first and last name to User
+- Identify when user exists and is trying to register
+- Identify when user doesn't exist on login
+- Identify when password does not match username
+
+Home:
+- Create About Us page
+- Make Home index an overview of all things; DIFFERENT if not authd

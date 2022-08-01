@@ -3,12 +3,14 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <link rel="icon" href="{% static 'images/logo.png' %}">
+
     <!-- purecss.io -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@2.1.0/build/pure-min.css" integrity="sha384-yHIFVG6ClnONEA5yB5DJXfW2/KC173DIQrYoZMEtBvGzmf0PKiGyNEqe9N6BNDBH" crossorigin="anonymous">
     
     <link rel="stylesheet" href="{% static 'layout.css' %}">
-    {% block stylesheet %}
-    {% endblock stylesheet %}
+    {% block head %}
+    {% endblock head %}
 
     <title>
       {% block title %}
@@ -25,9 +27,12 @@
       <a href="{% url 'home:index' %}">
         <button class="pure-button">Home</button>
       </a>
-      <a href="#">
+      <a href="{% url 'events:index' %}">
         <button class="pure-button">Events</button>
       </a>
+
+      {% if user.is_authenticated %}
+
       <a href="#">
         <button class="pure-button">Emails</button>
       </a>
@@ -35,20 +40,30 @@
         <button class="pure-button">Chat</button>
       </a>
 
+      {% endif %}
+
+      <a href="#">
+        <button class="pure-button">About Us</button>
+      </a>
+
       {% if user.is_authenticated %}
+
       <a class="right" href="{% url 'users:logout' %}">
         <button class="pure-button">Log Out</button>
       </a>
       <a class="right empty" href="{% url 'users:index' %}">
         {{ user.username }}
       </a>
+
       {% else %}
+
       <a class="right" href="{% url 'users:login' %}">
         <button class="pure-button">Log In</button>
       </a>
       <a class="right" href="{% url 'users:register' %}">
         <button class="pure-button">Register</button>
       </a>
+
       {% endif %}
     </div>
 

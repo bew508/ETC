@@ -1,0 +1,82 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block head %}
+<script src="{% static 'events/form.js' %}"></script>
+{% endblock head %}
+
+{% block body %}
+    <h1>Event Request Form</h1>
+
+    {% if error %}
+    {{ error }}
+    {% endif %}
+
+    <form action="{% url 'events:form' %}" class="pure-form" method="post">
+        {% csrf_token %}
+        <div id="input">
+            <label for="first">First Name</label>
+            <input autofocus type="text" name="first" placeholder="First Name" required>
+    
+            <label for="last">Last Name</label>
+            <input type="text" name="last" placeholder="Last Name" required>
+    
+            <label for="email">Email</label>
+            <input type="email" name="email" placeholder="Email" required>
+    
+    
+            <label for="title">Event Title</label>
+            <input type="text" name="title" placeholder="Title of the Event" required>
+        </div>
+
+        <hr>
+
+        <div id="rehearsals">
+            <template>
+                <div class="rehearsal">
+                    <h5>Rehearsal 1</h5>
+    
+                    <label for="rehearsal-date">Date</label>
+                    <input type="date" name="rehearsal-date" required>
+    
+                    <label for="rehearsal-time">Time</label>
+                    <input type="time" name="rehearsal-time" required>
+
+                    <label for="rehearsal-duration">Duration</label>
+                    <input type="time" name="rehearsal-duration" required>
+                </div>
+            </template>
+            
+        </div>
+
+        <button class="pure-button" id="add-rehearsal-button">Add Rehearsal</button>
+        <button class="pure-button" id="remove-rehearsal-button" disabled>Remove Rehearsal</button>
+
+        <hr>
+
+        <div id="performances">
+            <template>
+                <div class="performance">
+                    <h5>Performance 1</h5>
+    
+                    <label for="performance-date">Date</label>
+                    <input type="date" name="performance-date" required>
+    
+                    <label for="performance-time">Time</label>
+                    <input type="time" name="performance-time" required>
+
+                    <label for="performance-duration">Duration</label>
+                    <input type="time" name="performance-duration" required>
+                </div>
+            </template>
+
+        </div>
+
+        <button class="pure-button" id="add-performance-button">Add Performance</button>
+        <button class="pure-button" id="remove-performance-button" disabled>Remove Performance</button>
+
+        <hr>
+
+        <button type="submit" class="pure-button pure-button-primary">Register Event</button>
+    </form>
+{% endblock body %}
