@@ -1,7 +1,12 @@
 // On content loaded
 document.addEventListener('DOMContentLoaded', () => {
     // Create first performance div
-    addPerformance()
+    console.log(document.querySelector('div#rehearsals').children.length)
+    if (document.querySelector('div#rehearsals').children.length === 1)
+        addPerformance()
+
+    // Check on all buttons
+    checkButtons()
 
     // Add onclick to add reahearsal button
     const addRehearsalButton = document.querySelector('form button#add-rehearsal-button')
@@ -30,15 +35,10 @@ function addRehearsal() {
 
     // Increment title, labels, and inputs
     rehearsal.querySelector('h5').innerHTML = `Rehearsal ${rehearsals.children.length}`
-    
+
     rehearsals.append(rehearsal)
 
-    // Disable add rehearsal button if there are 10 elements
-    if (rehearsals.children.length === 11)
-        document.querySelector('form button#add-rehearsal-button').disabled = true
-
-    // Enable remove rehearsal button
-    document.querySelector('form button#remove-rehearsal-button').disabled = false
+    checkButtons()
 
     return false
 }
@@ -49,12 +49,9 @@ function removeRehearsal() {
     const rehearsals = document.querySelector('div#rehearsals')
     rehearsals.removeChild(rehearsals.lastElementChild)
 
-    // Enable add rehearsal button
-    document.querySelector('form button#add-rehearsal-button').disabled = false
+    checkButtons()
 
-    // Disable remove rehearsal button if there are no elements remaining
-    if (rehearsals.children.length === 1)
-        document.querySelector('form button#remove-rehearsal-button').disabled = true
+    return false
 }
 
 // Add performance button
@@ -66,15 +63,10 @@ function addPerformance() {
 
     // Increment title, labels, and inputs
     performance.querySelector('h5').innerHTML = `Performance ${performances.children.length}`
-    
+
     performances.append(performance)
 
-    // Disable add performance button if there are 10 elements
-    if (performances.children.length === 11)
-        document.querySelector('form button#add-performance-button').disabled = true
-
-    // Enable remove performance button
-    document.querySelector('form button#remove-performance-button').disabled = false
+    checkButtons()
 
     return false
 }
@@ -85,11 +77,40 @@ function removePerformance() {
     const performances = document.querySelector('div#performances')
     performances.removeChild(performances.lastElementChild)
 
-    // Enable add rehearsal button
-    document.querySelector('form button#add-performance-button').disabled = false
+    checkButtons()
 
-    // Disable remove performance button if there is one element remaining
-    if (performances.children.length === 2)
+    return false
+}
+
+// Check the buttons
+function checkButtons() {
+    // Check rehearsal buttons
+    const rehearsals = document.querySelector('div#rehearsals')
+
+    // Add rehearsal button
+    if (rehearsals.children.length >= 11)
+        document.querySelector('form button#add-rehearsal-button').disabled = true
+    else
+        document.querySelector('form button#add-rehearsal-button').disabled = false
+
+    // Remove rehearsal button
+    if (rehearsals.children.length <= 1)
+        document.querySelector('form button#remove-rehearsal-button').disabled = true
+    else
+        document.querySelector('form button#remove-rehearsal-button').disabled = false
+
+    // Check performance buttons
+    const performances = document.querySelector('div#performances')
+
+    // Add performance button
+    if (performances.children.length >= 11)
+        document.querySelector('form button#add-performance-button').disabled = true
+    else
+        document.querySelector('form button#add-performance-button').disabled = false
+
+    // Remove performance button
+    if (performances.children.length <= 2)
         document.querySelector('form button#remove-performance-button').disabled = true
-
+    else
+        document.querySelector('form button#remove-performance-button').disabled = false
 }

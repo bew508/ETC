@@ -1,6 +1,15 @@
 from datetime import datetime
 from django.db import models
 
+CATEGORY_CHOICES = [
+    ('0', 'Musical'),
+    ('1', 'Play'),
+    ('2', 'Dance'),
+    ('3', 'Movie Night'),
+    ('4', 'Presentation'),
+    ('5', 'Open House'),
+]
+
 # Create your models here.
 class EventCoordinator(models.Model):
     email = models.EmailField(max_length=254, unique=True)
@@ -23,7 +32,7 @@ class Event(models.Model):
     title = models.CharField(max_length=50)
     coordinator = models.ForeignKey(EventCoordinator, on_delete=models.CASCADE)
     
-    category = models.CharField(max_length=50, choices=[])
+    category = models.CharField(max_length=1, choices=CATEGORY_CHOICES)
     location = models.CharField(max_length=50)
     
     rehearsals = models.ManyToManyField(Happening, related_name='events_rehearsals')

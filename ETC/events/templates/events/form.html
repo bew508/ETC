@@ -1,5 +1,6 @@
 {% extends 'layout.html' %}
 {% load static %}
+{% load index %}
 
 {% block head %}
 <script src="{% static 'events/form.js' %}"></script>
@@ -8,25 +9,44 @@
 {% block body %}
     <h1>Event Request Form</h1>
 
+    <p><i>All time zones must be in Central European Time.</i><p>
+
     {% if error %}
-    {{ error }}
+        {{ error }}
     {% endif %}
 
     <form action="{% url 'events:form' %}" class="pure-form" method="post">
         {% csrf_token %}
         <div id="input">
             <label for="first">First Name</label>
-            <input autofocus type="text" name="first" placeholder="First Name" required>
+            <input type="text" name="first" placeholder="First Name" value="{{ form.first }}" required>
     
             <label for="last">Last Name</label>
-            <input type="text" name="last" placeholder="Last Name" required>
+            <input type="text" name="last" placeholder="Last Name" value="{{ form.last }}" required>
     
             <label for="email">Email</label>
-            <input type="email" name="email" placeholder="Email" required>
+            <input type="email" name="email" placeholder="Email" value="{{ form.email }}" required>
     
     
             <label for="title">Event Title</label>
-            <input type="text" name="title" placeholder="Title of the Event" required>
+            <input type="text" name="title" placeholder="Title of the Event" value="{{ form.title }}" required>
+
+            <label for="category">Category</label>
+            <select name="category">
+                {% for category in category_choices %}
+                    <option value="{{ category.0 }}" {% if form.category == category.0 %}selected{% endif %}>{{ category.1 }}</option>
+                {% endfor %}
+            </select>
+
+            <!--TODO: Possibly replace -->
+            <label for="location">Location</label>
+            <input type="text" list="datalist-location-options" name="location" value="{{ form.location }}" required>
+            <datalist id="datalist-location-options">
+                <option>Large Aula</option>
+                <option>Small Aula</option>
+            </datalist>
+
+
         </div>
 
         <hr>
@@ -46,6 +66,21 @@
                     <input type="time" name="rehearsal-duration" required>
                 </div>
             </template>
+
+            {% for rehearsal in 'x'|ljust:form.rehearsal_count %}
+                <div class="rehearsal">
+                    <h5>Rehearsal {{ forloop.counter }}</h5>
+
+                    <label for="rehearsal-date">Date</label>
+                    <input type="date" name="rehearsal-date" value="{{ form.rehearsal_date|index:forloop.counter0 }}" required>
+
+                    <label for="rehearsal-time">Time</label>
+                    <input type="time" name="rehearsal-time" value="{{ form.rehearsal_time|index:forloop.counter0 }}" required>
+
+                    <label for="rehearsal-duration">Duration</label>
+                    <input type="time" name="rehearsal-duration" value="{{ form.rehearsal_duration|index:forloop.counter0 }}" required>
+                </div>
+            {% endfor %}
             
         </div>
 
@@ -69,6 +104,21 @@
                     <input type="time" name="performance-duration" required>
                 </div>
             </template>
+
+            {% for performance in 'x'|ljust:form.performance_count %}
+                <div class="performance">
+                    <h5>Performance {{ forloop.counter }}</h5>
+
+                    <label for="performance-date">Date</label>
+                    <input type="date" name="performance-date" value="{{ form.performance_date|index:forloop.counter0 }}" required>
+
+                    <label for="performance-time">Time</label>
+                    <input type="time" name="performance-time" value="{{ form.performance_time|index:forloop.counter0 }}" required>
+
+                    <label for="performance-duration">Duration</label>
+                    <input type="time" name="performance-duration" value="{{ form.performance_duration|index:forloop.counter0 }}" required>
+                </div>
+            {% endfor %}
 
         </div>
 
