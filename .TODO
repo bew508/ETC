@@ -2,16 +2,21 @@
 
 ## Event Request
 
-- Create full model with all details about event
-- Add Event Manager
-- Autofill event form if user is logged in with First, Last, Email
-~~Create js to add Rehearsal/Performance~~
 - Add filming and livestreaming and option to add it to Happening
-~~Match event coordinator to past event coordinator if possible~~
-- Create performance and rehearsal locations
+- Add equipment list to event model
+- Add more questions regarding equipment to model and request form
+- Create performance and rehearsal locations option
 - Autofill performance and rehearsal locations to main location
-- Create a form review page where users can look at their form again
 - Send an email to user's email address with form results again
+- Create view for staff to see all events
+- Create add event manager button
+- Add error highlighting on incorrect fields in form
+~~Match event coordinator to past event coordinator if possible~~
+~~Create a form review page where users can look at their form again~~
+~~Create full model with all details about event~~
+~~Add Event Manager to model~~
+~~Autofill event form if user is logged in with First, Last, Email~~
+~~Create js to add Rehearsal/Performance~~
 
 ## Users
 

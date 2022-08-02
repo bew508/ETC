@@ -1,8 +1,7 @@
 // On content loaded
 document.addEventListener('DOMContentLoaded', () => {
     // Create first performance div
-    console.log(document.querySelector('div#rehearsals').children.length)
-    if (document.querySelector('div#rehearsals').children.length === 1)
+    if (document.querySelector('div#performances').children.length === 1)
         addPerformance()
 
     // Check on all buttons

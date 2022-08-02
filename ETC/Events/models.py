@@ -1,5 +1,6 @@
 from datetime import datetime
 from django.db import models
+from django.contrib.auth.models import User
 
 CATEGORY_CHOICES = [
     ('0', 'Musical'),
@@ -31,6 +32,7 @@ class Event(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     title = models.CharField(max_length=50)
     coordinator = models.ForeignKey(EventCoordinator, on_delete=models.CASCADE)
+    manager = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     
     category = models.CharField(max_length=1, choices=CATEGORY_CHOICES)
     location = models.CharField(max_length=50)

@@ -3,7 +3,6 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
 from django.shortcuts import redirect, render
-from django.urls import reverse
 
 # Create your views here.
 @login_required

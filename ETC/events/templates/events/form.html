@@ -46,7 +46,6 @@
                 <option>Small Aula</option>
             </datalist>
 
-
         </div>
 
         <hr>
@@ -67,7 +66,7 @@
                 </div>
             </template>
 
-            {% for rehearsal in 'x'|ljust:form.rehearsal_count %}
+            {% for rehearsal in form.rehearsal_count %}
                 <div class="rehearsal">
                     <h5>Rehearsal {{ forloop.counter }}</h5>
 
@@ -105,7 +104,7 @@
                 </div>
             </template>
 
-            {% for performance in 'x'|ljust:form.performance_count %}
+            {% for performance in form.performance_count %}
                 <div class="performance">
                     <h5>Performance {{ forloop.counter }}</h5>
 

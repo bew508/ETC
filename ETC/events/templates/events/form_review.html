@@ -1,7 +1,43 @@
 {% extends 'layout.html' %}
+{% load index %}
+{% load date %}
 
 {% block body %}
-Form succesfully submitted!
-
--Add the form values here-
-{% endblock body %}
+  Form succesfully submitted!<table>
+    <tr>
+      <td>Name:</td>
+      <td>{{ form.first }} {{ form.last }}</td>
+    </tr>
+    <tr>
+      <td>Email:</td>
+      <td>{{ form.email }}</td>
+    </tr>
+    <tr>
+      <td>Event Title:</td>
+      <td>{{ form.title }}</td>
+    </tr>
+    <tr>
+      <td>Category:</td>
+      <td>{{ form.category }}</td>
+    </tr>
+    <tr>
+      <td>Location:</td>
+      <td>{{ form.location }}</td>
+    </tr>
+    <tr>
+      <td>Category:</td>
+      <td>{{ form.category }}</td>
+    </tr>
+    {% for rehearsal in form.rehearsal_count %}
+      <tr>
+        <td>Rehearsal {{ forloop.counter }}:</td>
+        <td>{{ form.rehearsal_date|index:rehearsal|date }} at {{ form.rehearsal_time|index:rehearsal }} for {{ form.rehearsal_duration|index:rehearsal }}</td>
+      </tr>
+    {% endfor %}
+    {% for performance in form.performance_count %}
+      <tr>
+        <td>Performance {{ forloop.counter }}:</td>
+        <td>{{ form.performance_date|index:performance|date }} at {{ form.performance_time|index:performance }} for {{ form.performance_duration|index:perfomance }}</td>
+    {% endfor %}
+  </table>
+{% endblock %}

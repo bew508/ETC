@@ -1,8 +1,6 @@
 from datetime import datetime, timedelta
 from django.db import IntegrityError
-from django.http import HttpResponse
 from django.shortcuts import redirect, render
-from django.contrib.auth.decorators import login_required
 
 from .models import EventCoordinator, Happening, Event, CATEGORY_CHOICES
 
@@ -98,31 +96,64 @@ def form(request):
         return ''
         
     if request.method == 'POST':
+        # Run post function
         error = post()
         
         # Move to form_review in case of no error
         if not error:
-            return render(request, 'events/form_review.html')
+            return render(request, 'events/form_review.html', {
+                'form': {
+                    'first': request.POST.get('first', ''),
+                    'last': request.POST.get('last', ''),
+                    'email': request.POST.get('email', ''),
+                    'title': request.POST.get('title', ''),
+                    'category': CATEGORY_CHOICES[int(request.POST.get('category', ''))][1],
+                    'location': request.POST.get('location', ''),
+                    'rehearsal_count': range(len(request.POST.getlist('rehearsal-date'))),
+                    'rehearsal_date': request.POST.getlist('rehearsal-date', ''),
+                    'rehearsal_time': request.POST.getlist('rehearsal-time', ''),
+                    'rehearsal_duration': request.POST.getlist('rehearsal-duration', ''),
+                    'performance_count': range(len(request.POST.getlist('performance-date'))),
+                    'performance_date': request.POST.getlist('performance-date', ''),
+                    'performance_time': request.POST.getlist('performance-time', ''),
+                    'performance_duration': request.POST.getlist('performance-duration', ''),
+                }
+            })
+
+        # Set first, last, and email to form data        
+        first = request.POST.get('first', '')
+        last = request.POST.get('last', '')
+        email = request.POST.get('email', '')
         
     else:
         error = ''
+        
+        # Autofill first, last, and email with logged in user
+        if request.user.is_authenticated:
+            first = request.user.first_name
+            last = request.user.last_name
+            email = request.user.email
+        else:
+            first = ''
+            last = ''
+            email = ''
             
     # Return form page
     return render(request, 'events/form.html', {
         'error': error,
         'category_choices': CATEGORY_CHOICES,
         'form': {
-            'first': request.POST.get('first', ''),
-            'last': request.POST.get('last', ''),
-            'email': request.POST.get('email', ''),
+            'first': first,
+            'last': last,
+            'email': email,
             'title': request.POST.get('title', ''),
             'category': request.POST.get('category', ''),
             'location': request.POST.get('location', ''),
-            'rehearsal_count': len(request.POST.getlist('rehearsal-date')),
+            'rehearsal_count': range(len(request.POST.getlist('rehearsal-date'))),
             'rehearsal_date': request.POST.getlist('rehearsal-date', ''),
             'rehearsal_time': request.POST.getlist('rehearsal-time', ''),
             'rehearsal_duration': request.POST.getlist('rehearsal-duration', ''),
-            'performance_count': len(request.POST.getlist('performance-date')),
+            'performance_count': range(len(request.POST.getlist('performance-date'))),
             'performance_date': request.POST.getlist('performance-date', ''),
             'performance_time': request.POST.getlist('performance-time', ''),
             'performance_duration': request.POST.getlist('performance-duration', ''),
