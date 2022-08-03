@@ -1,6 +1,9 @@
 # Virtual environment
 env/
 
+# Sensitive information
+.env
+
 # MacOS
 *.DS_Store
 

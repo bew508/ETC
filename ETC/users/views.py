@@ -2,6 +2,7 @@ import json
 from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.password_validation import validate_password
+from django.core.mail import send_mail
 from django.views.decorators.http import require_POST
 from django.db import IntegrityError
 from django.forms import ValidationError
@@ -134,6 +135,22 @@ def create_account(request):
         except IntegrityError as e:
             print(e)
             return 'An error occured. Please try again later.'
+        
+        # Send user an email
+        send_mail(
+            subject='ETC Website Account',
+            message=
+            f"""
+            An account has just been created for you on the ETC Website! Use the following login information to log in:
+            
+            Email: {email}
+            Password: {first.lower()}.{last.lower()}
+            
+            You will be prompted to change your password once you log in for the first time.
+            """,
+            from_email=None,
+            recipient_list=[email]
+        )
             
         return ''
     
