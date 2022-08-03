@@ -1,0 +1,35 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block head %}
+  <link rel="stylesheet" href="{% static 'users/styles.css' %}" />
+{% endblock head %}
+
+{% block body %}
+  <div>
+    <h1>Activate</h1>
+
+    <div>You must activate your new account before logging in.</div>
+
+    {% for error in errors %}
+        <div class="error">{{ error }}</div>
+    {% endfor %}
+
+    <form class="pure-form" action="{% url 'users:login' %}" method="post">
+      {% csrf_token %}
+      <input type="hidden" name="" autocomplete="off">
+
+      <input type="hidden" name="id" value="{{ id }}">
+
+      <label for="password">New Password</label>
+      <input type="password" name="password" placeholder="New Password" />
+
+      <label for="confirm-password">Confirm Password</label>
+      <input type="password" name="confirm-password" placeholder="Confirm Password" />
+
+      <button type="submit" class="pure-button pure-button-primary">Activate Account</button>
+    </form>
+
+    <br />
+  </div>
+{% endblock %}

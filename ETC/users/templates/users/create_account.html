@@ -1,0 +1,53 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block head %}
+  <link rel="stylesheet" href="{% static 'users/styles.css' %}" />
+{% endblock head %}
+
+{% block body %}
+  <div>
+    <h1>Create New Account</h1>
+
+    <div>Create a new account for a user. The password for first login will be 'firstname.lastname' all lowercase.</div>
+
+    {% if error %}
+      <div class="error">{{ error }}</div>
+    {% endif %}
+
+    <form class="pure-form" action="{% url 'users:create_account' %}" method="post">
+      {% csrf_token %}
+      <input type="hidden" name="" autocomplete="off">
+
+      <label for="first">First Name</label>
+      <input autofocus type="text" name="first" placeholder="First Name" />
+
+      <label for="last">Last Name</label>
+      <input type="text" name="last" placeholder="Last Name" />
+
+      <label for="email">Email</label>
+      <input type="email" name="email" placeholder="Email" />
+
+      {% if unique_roles_available %}
+        <label for="unique-role">Unique Role</label>
+        <select name="unique-role">
+          <option value="">None</option>
+          {% for unique_role in unique_roles_available %}
+              <option value="{{ unique_role.0 }}">{{ unique_role.1 }}</option>
+          {% endfor %}
+        </select>
+      {% endif %}
+
+      <label for="common-role">Common Role</label>
+      <select name="common-role">
+        {% for common_role in common_roles_available %}
+          <option value="{{ common_role.0 }}">{{ common_role.1 }}</option>
+        {% endfor %}
+      </select>
+
+      <button type="submit" class="pure-button pure-button-primary">Create New Account</button>
+    </form>
+
+    <br />
+  </div>
+{% endblock %}

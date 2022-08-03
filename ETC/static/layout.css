@@ -43,3 +43,8 @@ html {
 #body {
     margin: 10px;
 }
+
+/* Forms */
+.error {
+    color: red;
+}

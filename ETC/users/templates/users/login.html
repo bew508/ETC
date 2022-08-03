@@ -15,8 +15,8 @@
     
         <form class="pure-form" action="{% url 'users:login' %}" method="post">
             {% csrf_token %}
-            <label for="username">Username</label>
-            <input autofocus type="text" name="username" placeholder="Username" />
+            <label for="email">Email</label>
+            <input autofocus type="email" name="email" placeholder="Email" />
       
             <label for="password">Password</label>
             <input type="password" name="password" placeholder="Password" />
@@ -25,7 +25,5 @@
           </form>
     
         <br>
-    
-        Don't have an account? <a href="{% url 'users:register' %}">Register here.</a>
 </div>
 {% endblock body %}

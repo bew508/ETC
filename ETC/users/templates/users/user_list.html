@@ -1,0 +1,53 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'users/user_list.css' %}">
+<script src="{% static 'users/user_list.js' %}"></script>
+
+<template id="removal-warning-template">
+    <div id="removal-warning">
+        <h1>Are you sure?</h1>
+        <p>Removing this user causes them to lose all of their data. Are you sure you would like to remove this user?</p>
+        <button class="pure-button yes">I'm Sure</button>
+        <button class="pure-button no" autofocus>Cancel</button>
+    </div>
+</template>
+{% endblock head %}
+
+{% block body %}
+<h1>User List</h1>
+
+<div>To activate an account, the user must log in with their email and the password 'firstname.lastname' all lowercase.</div>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Unique Role</th>
+            <th>Common Role</th>
+            <th>Activated</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.first_name }}</td>
+                <td>{{ user.last_name }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.get_unique_role_display }}</td>
+                <td>{{ user.get_common_role_display }}</td>
+                <td>{% if user.activated %}Yes{% else %}No{% endif %}</td>
+                <td><button data-id="{{ user.id }}" class="remove-button pure-button">Remove User</button></td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<a href="{% url 'users:create_account' %}"><button class="pure-button">Add Account</button></a>
+
+{% endblock body %}
