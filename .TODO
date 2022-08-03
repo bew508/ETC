@@ -20,9 +20,9 @@
 
 ## Users
 
-- Allow user accounts to only be made by an admin
-- Add prompt to change password upon loggin in first time
 - Add roles (rank) to User
+- Add prompt to change password upon loggin in first time
+- Allow user accounts to only be made by an admin
 - Add first and last name to User
 - Identify when user exists and is trying to register
 - Identify when user doesn't exist on login
@@ -32,3 +32,9 @@
 
 - Create About Us page
 - Make Home index an overview of all things; DIFFERENT if not authd
+
+## Chat
+
+- Create chat models
+- Create chat view
+- Create js for fetching new chat async
