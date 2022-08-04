@@ -82,7 +82,6 @@ def login_view(request):
         if id:
             return activate(id, True)
         
-
         # Check if authentication successful
         if user:
             # Check for unactivated users

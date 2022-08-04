@@ -33,30 +33,26 @@
 
       {% if user.unique_role %}
       
-      <a href="{% url 'users:list' %}">
-        <button class="pure-button">Users</button>
-      </a>
+        <a href="{% url 'users:list' %}">
+          <button class="pure-button">Users</button>
+        </a>
 
       {% endif %}
 
-      <a href="#">
-        <button class="pure-button">About Us</button>
-      </a>
-
       {% if user.is_authenticated %}
 
-      <a class="right" href="{% url 'users:logout' %}">
-        <button class="pure-button">Log Out</button>
-      </a>
-      <a class="right empty" href="{% url 'users:index' %}">
-        {{ user.first_name }}
-      </a>
+        <a class="right" href="{% url 'users:logout' %}">
+          <button class="pure-button">Log Out</button>
+        </a>
+        <a class="right empty" href="{% url 'users:index' %}">
+          {{ user.first_name }}
+        </a>
 
       {% else %}
 
-      <a class="right" href="{% url 'users:login' %}">
-        <button class="pure-button">Log In</button>
-      </a>
+        <a class="right" href="{% url 'users:login' %}">
+          <button class="pure-button">Log In</button>
+        </a>
 
       {% endif %}
     </div>

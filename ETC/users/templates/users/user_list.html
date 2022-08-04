@@ -20,7 +20,7 @@
 
 <div>To activate an account, the user must log in with their email and the password 'firstname.lastname' all lowercase.</div>
 
-<table>
+<table class="pure-table pure-table-striped">
     <thead>
         <tr>
             <th>ID</th>
@@ -30,18 +30,19 @@
             <th>Unique Role</th>
             <th>Common Role</th>
             <th>Activated</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
         {% for user in users %}
             <tr>
-                <td>{{ user.id }}</td>
-                <td>{{ user.first_name }}</td>
-                <td>{{ user.last_name }}</td>
-                <td>{{ user.email }}</td>
-                <td>{{ user.get_unique_role_display }}</td>
-                <td>{{ user.get_common_role_display }}</td>
-                <td>{% if user.activated %}Yes{% else %}No{% endif %}</td>
+                <td data-th="ID: ">{{ user.id }}</td>
+                <td data-th="First Name: ">{{ user.first_name }}</td>
+                <td data-th="Last Name: ">{{ user.last_name }}</td>
+                <td data-th="Email: ">{{ user.email }}</td>
+                <td data-th="Unique Role: ">{{ user.get_unique_role_display }}</td>
+                <td data-th="Common Role: ">{{ user.get_common_role_display }}</td>
+                <td data-th="Activated: ">{% if user.activated %}Yes{% else %}No{% endif %}</td>
                 <td><button data-id="{{ user.id }}" class="remove-button pure-button">Remove User</button></td>
             </tr>
         {% endfor %}

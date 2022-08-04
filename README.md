@@ -52,7 +52,7 @@ Now fill in each value with your email account's information.
 
 ### Static
 
-`layout.css`: Global styling file. Imported via *layout.html*. Sets styling for the navbar, the body, and form error messages.
+`layout.css`: Global styling file. Imported via *layout.html*. Sets styling for the navbar, the body, and form error messages. Also handles mobile friendliness of the website by increasing text size and stretching the nav-bar vertically.
 
 `images`: Contains the logo image and will contain future images that are required to be accessed in several apps.
 
@@ -66,7 +66,7 @@ Now fill in each value with your email account's information.
 
 ### Templates
 
-`index.html`: HTML file for the home page.
+`index.html`: HTML file for the home page. Gives a quick blurb about what the ETC is.
 
 ---
 
@@ -82,7 +82,7 @@ Now fill in each value with your email account's information.
 
 ### Views
 
-`index`: Returns the HTML for the user's account page.
+`index`: Returns the HTML for the user's account page. 
 
 `login_view`: First, this view redirects any already logged in users back to the home page. Then it presents a form for the user to log in with their email address and password. On submission of this form, a user is identified. Should the user's account not yet be activated, i.e. this is their first log-in, the user is then shown another form where they must put in a new password and confirm it. This password is validated by the django default password validator function. All errors are passed back to the user. Upon successful password creation, the user is logged in and redirected to the home page.
 
@@ -106,7 +106,7 @@ Now fill in each value with your email account's information.
 
 `create_account.html`: Site for the creation of a new account. Has *input* elements for First Name, Last Name, Email as well as *select* elements for unique role and common role. The unique role field will be hidden if there are no more unique roles available. The common role automatically selects a role while the unique role has a default value of None. All other values of unique and common roles are passed through django. The page also informs the administrator of the login information for the account they are creating should they want to pass this on to the user.
 
-`index.html`: User page. Displays information about the user.
+`index.html`: User page. Displays information about the user such as their full name and role(s).
 
 `login.html`: Requires an email and a password to be filled into the form so the user can be logged in. All error messages are displayed at the top of the page once they occur.
 
@@ -114,7 +114,7 @@ Now fill in each value with your email account's information.
 
 ### Static
 
-`user_list.css`: Adds formatting for the pop-up window by placing it in the middle of the page and creating the box it appears in.
+`user_list.css`: Adds formatting for the pop-up window by placing it in the middle of the page and creating the box it appears in. Also adds formatting to stretch the user list vertically instead of horizontally.
 
 `user_list.js`: Is responsible for creating the pop-up window and managing the buttons on it. A function is assigned to each Remove User button. Upon press, all buttons on the page will be disabled. Then a template present in the *user_list.html* file is retrieved that contains the HTML code for the pop-up. This template is copied and placed on the page and the linked css file takes over the formatting. Additionally, the page is darkened and functions are added to the buttons in the pop-up. Should the positive confirmation button be clicked, a csrf token is retrieved and a fetch POST request is sent to the appropriate view containing the user to be deleted. Then the background color is reset, all buttons are reactivated, and the pop-up window container is deleted. The latter part of this is also done if the user choose to cancel the removal.
 

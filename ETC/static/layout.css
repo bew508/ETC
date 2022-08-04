@@ -48,3 +48,21 @@ html {
 .error {
     color: red;
 }
+
+/* Mobile responsive */
+@media (max-width: 500px) {
+    body {
+        font-size: 20px;
+    }
+
+    #nav-bar {
+        height: fit-content;
+        display: flex;
+        flex-direction: column;
+    }
+
+    #nav-bar a {
+        margin: auto 0;
+        text-align: center;
+    }
+}
