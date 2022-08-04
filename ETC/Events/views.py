@@ -88,7 +88,6 @@ def form(request):
                     , '%Y-%m-%d %H:%M'
                     )
                 duration = datetime.strptime(request.POST.getlist('performance-duration')[performance], '%H:%M')
-                print(date_time)
                 performances.append(Happening.objects.create(start_time=date_time, duration=timedelta(hours=duration.hour, minutes=duration.minute)))
             except IntegrityError as e:
                 print(e)
