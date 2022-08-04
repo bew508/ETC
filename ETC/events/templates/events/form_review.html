@@ -37,7 +37,7 @@
     {% for performance in form.performance_count %}
       <tr>
         <td>Performance {{ forloop.counter }}:</td>
-        <td>{{ form.performance_date|index:performance|date }} at {{ form.performance_time|index:performance }} for {{ form.performance_duration|index:perfomance }}</td>
+        <td>{{ form.performance_date|index:performance|date }} at {{ form.performance_time|index:performance }} for {{ form.performance_duration|index:performance }}</td>
     {% endfor %}
   </table>
 {% endblock %}

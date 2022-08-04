@@ -1,6 +1,151 @@
 {% extends 'layout.html' %}
+{% load static %}
+
+{% block head %}
+<script src="{% static 'events/index.js' %}"></script>
+{% endblock head %}
 
 {% block body %}
-    <h1>Events</h1>
-    <a href="{% url 'events:form' %}">FORM HERE</a>
+    <h1>Event Request Form</h1>
+    Coordinating an event of your own? Fill out the Event Request Form to get premium tech assistance for your event!
+    <a href="{% url 'events:form' %}"><button class="pure-button">Form Here</button></a>
+
+    <hr>
+
+    <h1>My Upcoming Events</h1>
+
+    {% for event in upcoming_events %}
+    <div class="event">
+        <h3>{{ event.title }} - {{ event.coordinator }}</h3>
+        <table>
+            <tr>
+                <td>Registered At:</td>
+                <td>{{ event.created_at }}</td>
+            </tr>
+            <tr>
+                <td>Event Manager:</td>
+                <td>{{ event.manager }}</td>
+            </tr>
+            <tr>
+                <td>Team Members:</td>
+                <td>
+                    {% for member in event.team.all %}
+                        <div>{{ member }}</div>
+                    {% empty %}
+                        None
+                    {% endfor %}
+                </td>
+            </tr>
+            <tr>
+                <td>Location:</td>
+                <td>{{ event.location }}</td>
+            </tr>
+            <tr>
+                <td>Category:</td>
+                <td>{{ event.get_category_display }}</td>
+            </tr>
+            <tr>
+                <td>Rehearsals:</td>
+                <td>
+                    {% for rehearsal in event.rehearsals.all %}
+                        <div>{{ rehearsal }}</div>
+                    {% endfor %}
+                </td>
+            </tr>
+            <tr>
+                <td>Performances:</td>
+                <td>
+                    {% for performance in event.performances.all %}
+                        <div>{{ performance }}</div>
+                    {% endfor %}
+                </td>
+            </tr>
+        </table>
+
+        {% if staff_view %}
+            {% if event.manager == None %}
+                <button onclick="addEventManager()" id="add-event-manager-button" class="pure-button">Add Event Manager</button>
+
+                <div id="add-event-manager-form-container" style="display: none;">
+                    <form action="{% url 'events:add_event_manager' %}" class="pure-form" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="event-id" value="{{ event.id }}">
+                        <select name="event-manager">
+                            {% for user in users %}
+                                <option value="{{ user.id }}">{{ user }}</option>
+                            {% endfor %}
+                        </select>
+                        <button type="submit" class="pure-button">Add Event Manager</button>
+                    </form>
+                </div>
+            {% endif %}
+
+            <button onclick="addTeamMember()" id="add-team-member-button" class="pure-button">Add Team Member</button>
+
+                <div id="add-team-member-form-container" style="display: none;">
+                    <form action="{% url 'events:add_team_member' %}" class="pure-form" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="event-id" value="{{ event.id }}">
+                        <select name="team-members" multiple>
+                            {% for user in users %}
+                                {% if user not in event.team.all %}
+                                    <option value="{{ user.id }}">{{ user }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                        <button type="submit" class="pure-button">Add Team Members</button>
+                    </form>
+                </div>
+            
+            <form action="{% url 'events:event_complete' %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="id" value="{{ event.id }}">
+                <button type="submit" class="pure-button">Archive Event</button>
+            </form>
+        {% endif %}
+    </div>
+    {% empty %}
+    No upcoming events
+    {% endfor %}
+
+    <hr>
+
+    <h1>My Past Events</h1>
+
+    {% for event in past_events %}
+    <div class="event">
+        <h3>{{ event.title }} - {{ event.coordinator }}</h3>
+        <table>
+            <tr>
+                <td>Registered At:</td>
+                <td>{{ event.created_at }}</td>
+            </tr>
+            <tr>
+                <td>Event Manager:</td>
+                <td>{{ event.manager }}</td>
+            </tr>
+            <tr>
+                <td>Team Members:</td>
+                <td>
+                    {% for member in event.team.all %}
+                        <div>{{ member }}</div>
+                    {% empty %}
+                        None
+                    {% endfor %}
+                </td>
+            </tr>
+            <tr>
+                <td>Location:</td>
+                <td>{{ event.location }}</td>
+            </tr>
+            <tr>
+                <td>Category:</td>
+                <td>{{ event.get_category_display }}</td>
+            </tr>
+        </table>
+    </div>
+    {% empty %}
+    No past events
+    {% endfor %}
+
 {% endblock body %}

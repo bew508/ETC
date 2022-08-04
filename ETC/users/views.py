@@ -7,7 +7,6 @@ from django.views.decorators.http import require_POST
 from django.db import IntegrityError
 from django.forms import ValidationError
 from django.shortcuts import redirect, render
-from regex import W
 
 from .models import COMMON_ROLE_CHOICES, UNIQUE_ROLE_CHOICES
 

@@ -1,14 +1,31 @@
 from datetime import datetime, timedelta
 from django.db import IntegrityError
 from django.shortcuts import redirect, render
+from django.contrib.auth import get_user_model
+from django.views.decorators.http import require_POST
 
 from .models import EventCoordinator, Happening, Event, CATEGORY_CHOICES
 
 # Create your views here.
-def index(request):
+def index(request):    
     # Check if user is logged in
     if request.user.is_authenticated:
-        return render(request, 'events/index.html')
+        # Set upcoming events
+        if request.user.unique_role != None:
+            upcoming_events = Event.objects.filter(archived=False).order_by('created_at')
+            past_events = Event.objects.filter(archived=True).order_by('-created_at')
+            staff_view = True
+        else:
+            upcoming_events = Event.objects.filter(archived=False, team__in=request.user).order_by('created_at')
+            past_events = Event.objects.filter(archived=True, team__in=request.user).order_by('-created_at')
+            staff_view = False
+        
+        return render(request, 'events/index.html', {
+            'upcoming_events': upcoming_events,
+            'past_events': past_events,
+            'users': get_user_model().objects.all() if staff_view else [],
+            'staff_view': staff_view,
+        })
     else:
         return redirect('events:form')
     
@@ -160,3 +177,44 @@ def form(request):
         }
     })
 
+
+@require_POST
+def event_complete(request):
+    # Get event
+    id = request.POST.get('id')
+    event = Event.objects.get(pk=id)
+    
+    # Mark event as archived
+    event.archived = True
+    event.save()
+    
+    return redirect('events:index')
+    
+    
+@require_POST
+def add_event_manager(request):
+    # Get event
+    event_id = request.POST.get('event-id')
+    event = Event.objects.get(pk=event_id)
+    
+    # Get user
+    user_id = request.POST.get('event-manager')
+    user = get_user_model().objects.get(pk=user_id)
+    
+    # Assign event manager
+    event.manager = user
+    event.save()
+    
+    return redirect('events:index')
+
+@require_POST
+def add_team_member(request):
+    # Get event
+    event_id = request.POST.get('event-id')
+    event = Event.objects.get(pk=event_id)
+    
+    for user in request.POST.getlist('team-members'):
+        # Add all users to team
+        event.team.add(user)
+    
+    return redirect('events:index')

@@ -3,12 +3,12 @@ from django.db import models
 from django.contrib.auth import get_user_model
 
 CATEGORY_CHOICES = [
-    ('1', 'Musical'),
-    ('2', 'Play'),
-    ('3', 'Dance'),
-    ('4', 'Movie Night'),
-    ('5', 'Presentation'),
-    ('6', 'Open House'),
+    (1, 'Musical'),
+    (2, 'Play'),
+    (3, 'Dance'),
+    (4, 'Movie Night'),
+    (5, 'Presentation'),
+    (6, 'Open House'),
 ]
 
 # Create your models here.
@@ -32,10 +32,13 @@ class Event(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     title = models.CharField(max_length=50)
     coordinator = models.ForeignKey(EventCoordinator, on_delete=models.CASCADE)
-    manager = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, null=True)
+    manager = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, blank=True, null=True)
+    team = models.ManyToManyField(get_user_model(), related_name='events', blank=True)
     
     category = models.PositiveSmallIntegerField(choices=CATEGORY_CHOICES)
     location = models.CharField(max_length=50)
+    
+    archived = models.BooleanField(default=False)
     
     rehearsals = models.ManyToManyField(Happening, related_name='events_rehearsals')
     performances = models.ManyToManyField(Happening, related_name='events_performances')
