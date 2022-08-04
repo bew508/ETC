@@ -8,28 +8,28 @@
 - Create performance and rehearsal locations option
 - Autofill performance and rehearsal locations to main location
 - Send an email to user's email address with form results again
-~~Create view for staff to see all events~~
-~~Create add event manager button~~
+- ~~Create view for staff to see all events~~
+- ~~Create add event manager button~~
 - Add error highlighting on incorrect fields in form
-~~Allow adding of people to events~~
+- ~~Allow adding of people to events~~
 - Add Terms and Conditions page
-~~Match event coordinator to past event coordinator if possible~~
-~~Create a form review page where users can look at their form again~~
-~~Create full model with all details about event~~
-~~Add Event Manager to model~~
-~~Autofill event form if user is logged in with First, Last, Email~~
-~~Create js to add Rehearsal/Performance~~
+- ~~Match event coordinator to past event coordinator if possible~~
+- ~~Create a form review page where users can look at their form again~~
+- ~~Create full model with all details about event~~
+- ~~Add Event Manager to model~~
+- ~~Autofill event form if user is logged in with First, Last, Email~~
+- ~~Create js to add Rehearsal/Performance~~
 
 ## Users
 
 - Create user account page
 - Allow promotion and demotion of users
-~~Send user an email on creation of their account~~
-~~Identify when email already exists~~
-~~Add prompt to change password upon loggin in first time~~
-~~Allow user accounts to only be made by an admin~~
-~~Add first and last name to User~~
-~~Add roles (rank) to User~~
+- ~~Send user an email on creation of their account~~
+- ~~Identify when email already exists~~
+- ~~Add prompt to change password upon loggin in first time~~
+- ~~Allow user accounts to only be made by an admin~~
+- ~~Add first and last name to User~~
+- ~~Add roles (rank) to User~~
 
 ## Home
 

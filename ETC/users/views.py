@@ -77,10 +77,11 @@ def login_view(request):
         
         # Get activate form results
         id = request.POST.get('id')
-        
+                
         # Check for activate form
         if id:
             return activate(id, True)
+        
 
         # Check if authentication successful
         if user:

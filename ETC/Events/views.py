@@ -4,6 +4,8 @@ from django.shortcuts import redirect, render
 from django.contrib.auth import get_user_model
 from django.views.decorators.http import require_POST
 
+from users.decorators import unique_role_required
+
 from .models import EventCoordinator, Happening, Event, CATEGORY_CHOICES
 
 # Create your views here.
@@ -16,8 +18,8 @@ def index(request):
             past_events = Event.objects.filter(archived=True).order_by('-created_at')
             staff_view = True
         else:
-            upcoming_events = Event.objects.filter(archived=False, team__in=request.user).order_by('created_at')
-            past_events = Event.objects.filter(archived=True, team__in=request.user).order_by('-created_at')
+            upcoming_events = Event.objects.filter(archived=False, team__id=request.user.id).order_by('created_at')
+            past_events = Event.objects.filter(archived=True, team__id=request.user.id).order_by('-created_at')
             staff_view = False
         
         return render(request, 'events/index.html', {
@@ -30,9 +32,7 @@ def index(request):
         return redirect('events:form')
     
 def form(request):
-    def post():
-        print(request.POST)
-        
+    def post():        
         # Try and find an existing event coordinator
         coordinator = EventCoordinator.objects.filter(email=request.POST.get('email')).first()
         if coordinator:
@@ -68,7 +68,6 @@ def form(request):
                     request.POST.getlist('rehearsal-time')[rehearsal]
                     , '%Y-%m-%d %H:%M')
                 duration = datetime.strptime(request.POST.getlist('rehearsal-duration')[rehearsal], '%H:%M')
-                print(date_time)
                 rehearsals.append(Happening.objects.create(start_time=date_time, duration=timedelta(hours=duration.hour, minutes=duration.minute)))
             except IntegrityError as e:
                 print(e)
@@ -179,6 +178,7 @@ def form(request):
 
 
 @require_POST
+@unique_role_required()
 def event_complete(request):
     # Get event
     id = request.POST.get('id')
@@ -192,6 +192,7 @@ def event_complete(request):
     
     
 @require_POST
+@unique_role_required()
 def add_event_manager(request):
     # Get event
     event_id = request.POST.get('event-id')
@@ -208,6 +209,7 @@ def add_event_manager(request):
     return redirect('events:index')
 
 @require_POST
+@unique_role_required()
 def add_team_member(request):
     # Get event
     event_id = request.POST.get('event-id')

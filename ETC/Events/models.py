@@ -31,15 +31,19 @@ class Event(models.Model):
     # Basic information
     created_at = models.DateTimeField(auto_now_add=True)
     title = models.CharField(max_length=50)
+    
+    # People
     coordinator = models.ForeignKey(EventCoordinator, on_delete=models.CASCADE)
     manager = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, blank=True, null=True)
     team = models.ManyToManyField(get_user_model(), related_name='events', blank=True)
     
+    # Details
     category = models.PositiveSmallIntegerField(choices=CATEGORY_CHOICES)
     location = models.CharField(max_length=50)
     
     archived = models.BooleanField(default=False)
     
+    # Happenings
     rehearsals = models.ManyToManyField(Happening, related_name='events_rehearsals')
     performances = models.ManyToManyField(Happening, related_name='events_performances')
     

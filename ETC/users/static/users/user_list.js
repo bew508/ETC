@@ -22,10 +22,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Get csrf_token from cookies
                 const token = document.cookie.match(new RegExp(`(^| )csrftoken=([^;]+)`))[2]
 
-                console.log(button)
-                console.log(button.dataset)
-                console.log(button.dataset.id)
-
                 fetch('/account/remove', {
                     method: 'POST',
                     body: JSON.stringify({
