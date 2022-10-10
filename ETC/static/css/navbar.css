@@ -1,0 +1,36 @@
+:root {
+    --nav-bar-height: 80px;
+}
+
+div#nav-bar {
+    background-color: #111111bc;
+    
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    height: var(--nav-bar-height);
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+div#nav-bar img#logo {
+    height: calc(var(--nav-bar-height) - 10px);
+    margin: 5px;
+}
+
+div#nav-bar a#logo-link {
+    height: var(--nav-bar-height)
+}
+
+div#nav-bar a.nav-bar-empty {
+    background-color: transparent;
+    color: aliceblue;
+    font-weight: bold;
+}
+
+div#nav-bar a.nav-bar-empty:hover {
+    color: #f0f8ffd6
+}

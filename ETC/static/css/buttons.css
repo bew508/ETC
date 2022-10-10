@@ -1,0 +1,19 @@
+a.button {
+    background-color: #d3dadf;
+    
+    border-radius: 5px;
+    padding: 10px 18px;
+    
+    font-size: 20px;
+    font-weight: 500;
+    color: black;
+    text-decoration: none;
+}
+
+a.button:hover {
+    background-color: #cad1d7df;
+}
+
+a.button:focus {
+    outline: #3ec3f8 solid 1px;
+}

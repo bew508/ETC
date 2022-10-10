@@ -1,0 +1,24 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block head %}
+<style>
+
+</style>
+{% endblock head %}
+
+{% block title %}
+ETC: Home
+{% endblock title %}
+
+{% block body %}
+<h1>Event Tech Crew</h1>
+<h3>Hehe, text is here</h3>
+<img src"{% static 'images/enigma-b.jpg' %}" style="
+filter: blur(2px) brightness(0.7);
+object-fit: none;
+height: 100%;
+width: auto;
+">
+<img src="{% static 'images/lighting_console.png' %}" width="100%">
+{% endblock body %}
